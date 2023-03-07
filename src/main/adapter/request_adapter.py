@@ -4,7 +4,9 @@ from src.view.http_types.http_request import HttpRequest
 from src.view.http_types.http_response import HttpResponse
 from src.view.interfaces.views_interface import ViewInterface
 
-def request_adapter(request: FlaskRequest, callback: Type[ViewInterface]) -> HttpResponse:
+def request_adapter(request: FlaskRequest, 
+        callback: Type[ViewInterface]) -> HttpResponse:
+
     http_request = HttpRequest(
         header=request.headers,
         body=request.json,
