@@ -2,7 +2,7 @@ from src.model.config.connection import DBConnectionHandler
 from src.model.entities.person import Person
 
 class PersonsRepository:
-    def select(self):
+    def list(self):
         with DBConnectionHandler() as db:
             try:
                 data = db.session.query(Person).all()
