@@ -8,3 +8,6 @@ class Person(Base):
     age = Column(Integer, unique=True, nullable=False)
     address =  Column(String, nullable=False) 
     profession =  Column(String, nullable=False)
+
+    def __repr__(self) -> str:
+        return f"{ self.name, self.age, self.address, self.profession }"
