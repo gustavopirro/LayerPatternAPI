@@ -12,7 +12,7 @@ class PersonCreateView(ViewInterface):
     def handle(self, http_request: Type[HttpRequest]) -> Type[HttpResponse]:
         try:
             body = http_request.body
-            request_data = body["numbers"]
+            request_data = body["person"]
 
             response = self.__controller.run(request_data)
 
