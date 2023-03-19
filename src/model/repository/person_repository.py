@@ -20,3 +20,15 @@ class PersonsRepository:
             except Exception as exception:
                 db.session.rollback()
                 raise exception
+    
+    def delete(self, name):
+        with DBConnectionHandler() as db:
+            try:
+                person = db.session.query(Person).filter_by(name=name)
+                if not person.count():
+                    raise Exception('Person not found')
+                person.delete()
+                db.session.commit()
+            except Exception as exception:
+                db.session.rollback()
+                raise exception
