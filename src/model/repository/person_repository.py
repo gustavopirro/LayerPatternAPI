@@ -1,5 +1,8 @@
+from src.errors.error_handler import ErrorHandler
 from src.model.config.connection import DBConnectionHandler
 from src.model.entities.person import Person
+from sqlalchemy.exc import IntegrityError
+from src.errors.entity_already_exists_exception import EntityAlreadyExistsException
 
 class PersonsRepository:
     def list(self):
@@ -17,9 +20,11 @@ class PersonsRepository:
                 data_insert = Person(name=name, age=age, address=address, profession=profession)
                 db.session.add(data_insert)
                 db.session.commit()
+            except IntegrityError:
+                raise EntityAlreadyExistsException("This entity id already exists at the database!")
             except Exception as exception:
                 db.session.rollback()
-                raise exception
+                ErrorHandler(exception) 
     
     def delete(self, name):
         with DBConnectionHandler() as db:
